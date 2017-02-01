@@ -7,14 +7,10 @@
  it under the terms of the GNU General Public License as published 
  by the Free Software Foundation; version 2 of the License.
 
- This program is distributed in the hope that it will be useful, but 
+ This script is distributed in the hope that it will be useful, but 
  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
  or FITNESS FOR A PARTICULAR BUSINESS MODEL. See the GNU General Public License 
- for more details.
-
- You should have received a copy of the GNU General Public License along 
- with this program; if not, write to the Free Software Foundation, Inc., 
- 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA
+ for more details. 
 */
 
 CREATE DATABASE IF NOT EXISTS `genhotel` /*!40100 DEFAULT CHARACTER SET utf8 */;
@@ -27,7 +23,9 @@ CREATE TABLE IF NOT EXISTS `booking` (
   `room_id` char(36) DEFAULT NULL,
   `checkin` datetime DEFAULT NULL,
   `checkout` datetime DEFAULT NULL,
-  `status` varchar(2) DEFAULT NULL,
+  `status_code` varchar(3) DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `staff_id_created` char(36) DEFAULT NULL,
   PRIMARY KEY (`booking_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -45,9 +43,10 @@ CREATE TABLE IF NOT EXISTS `guest` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `mnt_department` (
-  `dept_id` char(36) NOT NULL,
+  `dept_code` varchar(3) NOT NULL,
+  `dept_title` varchar(50) DEFAULT NULL,
   `dept_description` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`dept_id`)
+  PRIMARY KEY (`dept_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `mnt_room_type` (
@@ -73,12 +72,18 @@ CREATE TABLE IF NOT EXISTS `mnt_serviceitem_type` (
 
 CREATE TABLE IF NOT EXISTS `mnt_stafftype` (
   `stafftype_id` char(36) NOT NULL,
-  `dept_id` char(36) DEFAULT NULL,
-  `pay` decimal(7,2) DEFAULT NULL,
+  `dept_code` varchar(3) DEFAULT NULL,
+  `pay` decimal(7,2) DEFAULT '0.00',
   PRIMARY KEY (`stafftype_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `mtn_staff` (
+CREATE TABLE IF NOT EXISTS `mnt_status` (
+  `status_code` varchar(3) NOT NULL,
+  `status_description` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`status_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `mnt_staff` (
   `staff_id` char(36) NOT NULL,
   `firstname` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) DEFAULT NULL,
@@ -87,6 +92,13 @@ CREATE TABLE IF NOT EXISTS `mtn_staff` (
   `contact_no` varchar(12) DEFAULT NULL,
   `stafftype_id` char(36) DEFAULT NULL,
   PRIMARY KEY (`staff_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `mnt_stafftype` (
+  `stafftype_id` char(36) NOT NULL,
+  `dept_code` varchar(3) DEFAULT NULL,
+  `pay` decimal(7,2) DEFAULT '0.00',
+  PRIMARY KEY (`stafftype_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `reservation` (
