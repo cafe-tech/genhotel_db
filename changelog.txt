@@ -1,6 +1,12 @@
 Changes:
 
-2017.02.01
+Changes (0.3)
+2017.02.03
+
+1. New Column service.staff_id_created CHAR(36)
+2. New Table mnt_user
+
+2017.02.01 (0.2)
 
 1. Booking table	
   1.1 Old: booking,status 	         Change: booking.status_code

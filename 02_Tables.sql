@@ -70,13 +70,6 @@ CREATE TABLE IF NOT EXISTS `mnt_serviceitem_type` (
   PRIMARY KEY (`serviceitem_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `mnt_stafftype` (
-  `stafftype_id` char(36) NOT NULL,
-  `dept_code` varchar(3) DEFAULT NULL,
-  `pay` decimal(7,2) DEFAULT '0.00',
-  PRIMARY KEY (`stafftype_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE IF NOT EXISTS `mnt_status` (
   `status_code` varchar(3) NOT NULL,
   `status_description` varchar(50) DEFAULT NULL,
@@ -125,5 +118,16 @@ CREATE TABLE IF NOT EXISTS `service` (
   `fee` decimal(7,2) DEFAULT NULL,
   `discount` decimal(7,2) DEFAULT NULL,
   `date_added` datetime DEFAULT NULL,
+  `staff_id_created` char(36) DEFAULT NULL,
   PRIMARY KEY (`serviceitem_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `mnt_user` (
+  `user_id` char(36) NOT NULL,
+  `login` varchar(15) DEFAULT NULL,
+  `password` varchar(25) DEFAULT NULL,
+  `locked` bit(1) DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `staff_id` char(36) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
