@@ -11,7 +11,7 @@ What to expect in the future:
 - Materials 
 - Supplier
 
-While this script is under GPL2 license. 
+This script is under GPL2 license.
 I am hireable for programming too. Hit me up on:
 
 https://www.upwork.com/freelancers/~012f0a216bd9c9d047
