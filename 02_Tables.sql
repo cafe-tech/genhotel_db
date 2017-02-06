@@ -49,6 +49,21 @@ CREATE TABLE IF NOT EXISTS `mnt_department` (
   PRIMARY KEY (`dept_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `mnt_item` (
+  `mnt_item_id` char(36) NOT NULL,
+  `mnt_item_type` varchar(3) DEFAULT NULL,
+  `mnt_item_cost` decimal(7,2) DEFAULT NULL,
+  `mnt_item_date_acquired` datetime DEFAULT NULL,
+  PRIMARY KEY (`mnt_item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `mnt_room_item` (
+  `mnt_room_item_id` char(36) NOT NULL,
+  `mnt_room_id` char(36) NOT NULL,
+  `mnt_item_id` char(36) NOT NULL,
+  PRIMARY KEY (`mnt_room_item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `mnt_room_type` (
   `room_type_id` char(36) NOT NULL,
   `room_type_description` varchar(45) DEFAULT NULL,
@@ -70,12 +85,6 @@ CREATE TABLE IF NOT EXISTS `mnt_serviceitem_type` (
   PRIMARY KEY (`serviceitem_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `mnt_status` (
-  `status_code` varchar(3) NOT NULL,
-  `status_description` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`status_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE IF NOT EXISTS `mnt_staff` (
   `staff_id` char(36) NOT NULL,
   `firstname` varchar(50) DEFAULT NULL,
@@ -94,6 +103,24 @@ CREATE TABLE IF NOT EXISTS `mnt_stafftype` (
   PRIMARY KEY (`stafftype_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `mnt_status` (
+  `status_code` varchar(3) NOT NULL,
+  `status_description` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`status_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `mnt_user` (
+  `user_id` char(36) NOT NULL,
+  `login` varchar(15) DEFAULT NULL,
+  `password` varchar(25) DEFAULT NULL,
+  `locked` bit(1) DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  `date_lastlogin` datetime DEFAULT NULL,
+  `date_lastpwdchange` datetime DEFAULT NULL,
+  `staff_id` char(36) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `reservation` (
   `reservation_id` char(36) NOT NULL,
   `guest_id` char(36) DEFAULT NULL,
@@ -108,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `room` (
   `room_type_id` char(36) DEFAULT NULL,
   `fee` decimal(6,0) DEFAULT NULL,
   `current_booking_id` char(36) DEFAULT NULL,
+  `guest_max_capacity` int(11) DEFAULT NULL,
   PRIMARY KEY (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -120,14 +148,4 @@ CREATE TABLE IF NOT EXISTS `service` (
   `date_added` datetime DEFAULT NULL,
   `staff_id_created` char(36) DEFAULT NULL,
   PRIMARY KEY (`serviceitem_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `mnt_user` (
-  `user_id` char(36) NOT NULL,
-  `login` varchar(15) DEFAULT NULL,
-  `password` varchar(25) DEFAULT NULL,
-  `locked` bit(1) DEFAULT NULL,
-  `date_created` datetime DEFAULT NULL,
-  `staff_id` char(36) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

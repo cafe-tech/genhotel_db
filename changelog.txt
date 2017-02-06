@@ -1,5 +1,50 @@
 Changes:
 
+Changes (0.4)
+4.1. room 
+new field guest_max_capacity
+
+4.2 new table mnt_user
+mnt_user
+========
+user_id             ch(36)
+login               vc(15)
+password            vc(25)
+locked              bit
+date_created        datetime
+date_lastlogin      datetime
+date_lastpwdchange  datetime
+staff_id            ch(36)
+
+4.3 new table mnt_room_item
+mnt_room_item - keeps record of items when assigned to a room ( bed, lamp, etc )
+=============
+mnt_room_item_id        ch(36)
+mnt_room_id             ch(36)
+mnt_item_id             ch(36)
+
+4.4 new table mnt_item - list of items acquired (inventory)
+mnt_item
+========
+mnt_item_id             ch(36)
+mnt_item_type           vc(3)
+mnt_item_cost           decimal(7,2)
+mnt_item_date_acquired  datetime
+
+4.5 new table mnt_item_type
+mnt_item_type
+=============
+mnt_item_type           vc(3)
+mnt_item_description    vc(45)
+
+4.6 new table mnt_adjustment
+mnt_adjustment
+==============
+mnt_adjustment_code         vc(3)
+mnt_adjustment_description  vc(45)
+mnt_default_rate            decimal(7,2)
+mnt_adjustment_type         c(1)
+
 Changes (0.3)
 2017.02.03
 
